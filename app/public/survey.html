@@ -26,6 +26,7 @@
             color: white;
             width: 100%;
             padding: 10px;
+            margin-bottom: 10px;
         }
 
         #container {
@@ -40,6 +41,14 @@
         #friend-photo {
             height: 200px;
             width: 200px;
+        }
+
+        #photo, #name-input {
+            width: 700px;
+        }
+
+        .footer {
+            float: left;
         }
     </style>
 </head>
@@ -163,6 +172,16 @@
             data-target="#exampleModalCenter">
             <i class="fas fa-check-square"></i> Submit
         </button>
+        
+        <hr>
+        <footer class="footer">
+            <div class="container">
+                <p><a href="/api/friends">API Friends List</a>
+                    " | "
+                   <a href="https://github.com/danieldouglas23/friendfinder">GitHub Repo</a>
+                </p>
+            </div>
+        </footer>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -221,37 +240,34 @@
 
         $.post("/api/friends", newFriend,
             function (data) {
-                if (data) {
-                    alert("Yay! You are officially booked!");
-                } else {
-                    alert("Sorry you are on the wait list");
-                }
-
-                // $("#exampleModalCenter").modal("show");
-            });
-
-        $.ajax({ url: "/api/friends", method: "GET" })
-            .then(function (friendData) {
-
-                // Here we then log the tableData to console, where it will show up as an object.
-                console.log(friendData);
-                console.log("------------------------------------");
-
-
-
-                // Get a reference to the tableList element and populate it with tables
-                // var tableList = $("#tableList");
-
-                // Then display the fields in the HTML (Section Name, Date, URL)
-                // 
-                console.log(friendData[0].name);
                 var modalDiv = $(".modal-body");
 
-                modalDiv.append($("<h3>").text("Best Match: " + friendData[0].name + "!"));
-                modalDiv.append($('<img id="friend-photo" src="' + friendData[1].photo + '"' + '>'));
-                // modalDiv.append($(`<img  src="${friendData[0].photo}"`));
-
+                modalDiv.append($("<h3>").text("Best Match: " + data.name + "!"));
+                modalDiv.append($('<img id="friend-photo" src="' + data.photo + '"' + '>'));
             });
+
+        // $.ajax({ url: "/api/friends", method: "GET" })
+        //     .then(function (friendData) {
+
+        //         // Here we then log the tableData to console, where it will show up as an object.
+        //         console.log(friendData);
+        //         console.log("------------------------------------");
+
+
+
+        //         // Get a reference to the tableList element and populate it with tables
+        //         // var tableList = $("#tableList");
+
+        //         // Then display the fields in the HTML (Section Name, Date, URL)
+        //         // 
+        //         console.log(friendData[0].name);
+        //         var modalDiv = $(".modal-body");
+
+        //         modalDiv.append($("<h3>").text("Best Match: " + friendData[1].name + "!"));
+        //         modalDiv.append($('<img id="friend-photo" src="' + friendData[1].photo + '"' + '>'));
+        //         // modalDiv.append($(`<img  src="${friendData[0].photo}"`));
+
+        //     });
 
     });
 
